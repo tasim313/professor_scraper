@@ -1,0 +1,22 @@
+# Core Django and DRF packages
+Django==4.2.5  # The latest stable version of Django
+djangorestframework==3.14.0  # Django Rest Framework for building APIs
+
+# Web scraping packages
+beautifulsoup4==4.12.2  # Beautiful Soup for parsing HTML
+requests==2.31.0  # HTTP library for making requests to scrape web pages
+
+# PostgreSQL database adapter
+psycopg2-binary==2.9.7  # PostgreSQL adapter for Python
+
+# Security and environment variable management
+django-cors-headers==4.0.0  # Handling CORS in Django
+django-environ==0.10.0  # Managing environment variables for Django settings
+
+# Linting and code formatting tools
+flake8==6.1.0  # Python style guide enforcement
+black==23.9.0  # Code formatting tool
+
+# Data analysis and visualization (optional)
+pandas==2.1.1  # Data manipulation and analysis (optional)
+matplotlib==3.7.2  # Plotting and visualization library (optional)
