@@ -1,6 +1,7 @@
 # Core Django and DRF packages
 Django==4.2.5  # The latest stable version of Django
 djangorestframework==3.14.0  # Django Rest Framework for building APIs
+djangorestframework-simplejwt==5.3.1
 
 # Web scraping packages
 beautifulsoup4==4.12.2  # Beautiful Soup for parsing HTML
@@ -12,6 +13,7 @@ psycopg2-binary==2.9.7  # PostgreSQL adapter for Python
 # Security and environment variable management
 django-cors-headers==4.0.0  # Handling CORS in Django
 django-environ==0.10.0  # Managing environment variables for Django settings
+python-dotenv == 1.0.1
 
 # Linting and code formatting tools
 flake8==6.1.0  # Python style guide enforcement
