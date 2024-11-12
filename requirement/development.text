@@ -22,3 +22,6 @@ black==23.9.0  # Code formatting tool
 # Data analysis and visualization (optional)
 pandas==2.1.1  # Data manipulation and analysis (optional)
 matplotlib==3.7.2  # Plotting and visualization library (optional)
+
+# encryption and decryption
+cryptography
