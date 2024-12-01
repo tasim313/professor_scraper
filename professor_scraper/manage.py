@@ -2,6 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import warnings
+
+# Suppress DeprecationWarnings globally
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 def main():
