@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ professor.name }}{% endblock %}
+
+{% block content %}
+<main class="max-w-4xl mx-auto px-6 py-12">
+    <a href="{% url 'professor_list' %}" class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-bold mb-6 transition-colors">
+        <i class="ph ph-arrow-left"></i> Back to Researchers
+    </a>
+    
+    <div class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+        <div class="flex items-start gap-8">
+            <div class="w-24 h-24 rounded-2xl bg-corporate-50 border border-corporate-100 flex items-center justify-center text-4xl font-extrabold text-corporate-400 shadow-sm shrink-0">
+                {{ professor.name|make_list|first }}
+            </div>
+            <div class="flex-1">
+                <h1 class="text-4xl font-extrabold mb-3 text-corporate-900">{{ professor.name }}</h1>
+                <p class="text-xl text-primary-600 font-bold mb-4 flex items-center gap-2">
+                    <i class="ph ph-briefcase"></i> {{ professor.title|default:"Professor" }}
+                </p>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center gap-2 text-corporate-600 font-medium">
+                        <i class="ph ph-bank"></i> <span>{{ professor.university.canonical_name }}</span>
+                    </div>
+                    {% if professor.department %}
+                    <div class="flex items-center gap-2 text-corporate-600 font-medium">
+                        <i class="ph ph-buildings"></i> <span>{{ professor.department.name }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="flex gap-3">
+                    {% if professor.official_email %}
+                    <a href="mailto:{{ professor.official_email }}" class="px-5 py-2.5 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-bold transition-colors flex items-center gap-2 shadow-sm">
+                        <i class="ph ph-envelope-simple text-lg"></i> Contact
+                    </a>
+                    {% endif %}
+                    {% if professor.profile_url %}
+                    <a href="{{ professor.profile_url }}" target="_blank" class="px-5 py-2.5 rounded-lg border border-corporate-200 bg-white hover:bg-corporate-50 text-corporate-900 font-bold transition-colors flex items-center gap-2 shadow-sm">
+                        <i class="ph ph-link text-lg"></i> Official Profile
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "core/base.html" %}
+
+{% block title %}Professors & Researchers{% endblock %}
+
+{% block content %}
+<main class="pt-12 pb-20 max-w-7xl mx-auto px-6">
+    <div class="mb-12">
+        <h1 class="text-4xl font-bold tracking-tight mb-4 text-corporate-900">Discover Researchers</h1>
+        <p class="text-corporate-500 text-lg max-w-2xl">Find professors by research area, university, or publications.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div class="lg:col-span-1 space-y-8">
+            <!-- Filter placeholder -->
+            <div class="bg-white p-6 rounded-xl border border-corporate-200 shadow-sm">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-corporate-900 mb-4 flex items-center gap-2">
+                    <i class="ph ph-flask"></i> Research Area
+                </h3>
+                <div class="space-y-3 mb-6">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-primary-600 rounded border-corporate-300 focus:ring-primary-500">
+                        <span class="text-corporate-700 font-medium group-hover:text-primary-600 transition-colors">Computer Science</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-primary-600 rounded border-corporate-300 focus:ring-primary-500">
+                        <span class="text-corporate-700 font-medium group-hover:text-primary-600 transition-colors">Physics</span>
+                    </label>
+                </div>
+                <button class="w-full flex items-center justify-center gap-2 bg-corporate-100 hover:bg-corporate-200 text-corporate-900 px-6 py-3 rounded-lg font-bold transition-all border border-corporate-200">
+                    <i class="ph ph-funnel text-lg"></i> Apply Filters
+                </button>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 space-y-4">
+            {% for prof in professors %}
+            <a href="{% url 'professor_detail' prof.id %}" class="block group">
+                <div class="p-6 rounded-xl bg-white border border-corporate-200 hover:border-primary-400 hover:shadow-md transition-all flex items-center gap-6">
+                    <div class="w-16 h-16 rounded-full bg-corporate-100 flex items-center justify-center text-xl font-bold text-corporate-500 border border-corporate-200 group-hover:scale-105 transition-transform">
+                        {{ prof.name|make_list|first }}
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold mb-1 text-corporate-900 group-hover:text-primary-600 transition-colors">{{ prof.name }}</h3>
+                        <p class="text-corporate-500 text-sm mb-2 flex items-center gap-1">
+                            <i class="ph ph-briefcase"></i> {{ prof.title|default:"Professor" }} at {{ prof.university.canonical_name }}
+                        </p>
+                        {% if prof.orcid %}
+                        <span class="text-xs text-corporate-500 border border-corporate-200 px-2 py-1 rounded inline-flex items-center gap-1">
+                            <i class="ph ph-identification-card"></i> ORCID: {{ prof.orcid }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="text-corporate-400 group-hover:text-primary-500 transition-colors">
+                        <i class="ph ph-caret-right text-2xl"></i>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="p-12 text-center border border-corporate-200 rounded-xl bg-white shadow-sm">
+                <div class="text-5xl text-corporate-300 mb-4 flex justify-center"><i class="ph ph-users"></i></div>
+                <h3 class="text-xl font-bold text-corporate-900 mb-2">No Researchers Found</h3>
+                <p class="text-corporate-500">Database is currently empty. Please run scrapers or add data via admin.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends "core/base.html" %}
+
+{% block title %}Chat & Calls{% endblock %}
+
+{% block content %}
+<main class="h-[calc(100vh-80px)] max-w-7xl mx-auto flex gap-6 p-6">
+    <!-- Sidebar -->
+    <div class="w-80 flex flex-col gap-4">
+        <div class="p-6 rounded-2xl bg-white border border-corporate-200 shadow-sm h-full flex flex-col">
+            <h3 class="text-xl font-bold mb-4 text-corporate-900">Messages</h3>
+            <div class="relative mb-6">
+                <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-corporate-400"></i>
+                <input type="text" placeholder="Search chats..." class="w-full bg-corporate-50 border border-corporate-200 rounded-lg pl-10 pr-4 py-3 text-sm text-corporate-900 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all">
+            </div>
+            <div class="space-y-2 overflow-y-auto flex-1 pr-2">
+                <!-- Chat Item -->
+                <div class="flex items-center gap-4 p-4 rounded-xl bg-primary-50 border border-primary-100 cursor-pointer shadow-sm">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold text-lg border border-primary-200">DR</div>
+                    <div class="flex-1 overflow-hidden">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-sm text-corporate-900 truncate">Dr. Robert Smith</h4>
+                            <span class="text-xs text-corporate-500 font-medium">10:42 AM</span>
+                        </div>
+                        <p class="text-xs text-corporate-600 truncate">I've attached the research paper for review.</p>
+                    </div>
+                </div>
+                <!-- Chat Item -->
+                <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-corporate-50 border border-transparent hover:border-corporate-200 transition-all cursor-pointer">
+                    <div class="w-12 h-12 rounded-full bg-corporate-100 text-corporate-700 flex items-center justify-center font-bold text-lg border border-corporate-200">AI</div>
+                    <div class="flex-1 overflow-hidden">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-sm text-corporate-900 truncate">AI Research Group</h4>
+                            <span class="text-xs text-corporate-400 font-medium">Yesterday</span>
+                        </div>
+                        <p class="text-xs text-corporate-500 truncate">Alice: Let's schedule a video call.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chat Area -->
+    <div class="flex-1 flex flex-col bg-white border border-corporate-200 rounded-2xl shadow-sm overflow-hidden relative">
+        <!-- Chat Header -->
+        <div class="h-20 border-b border-corporate-200 flex items-center justify-between px-8 bg-white/95 backdrop-blur z-10 shadow-sm">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-corporate-100 text-corporate-700 flex items-center justify-center font-bold text-lg border border-corporate-200">DR</div>
+                <div>
+                    <h2 class="font-bold text-corporate-900 text-lg">Dr. Robert Smith</h2>
+                    <span class="text-sm text-green-600 flex items-center gap-1.5 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-green-500"></span> Online</span>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <!-- Video Call Button -->
+                <button class="p-3 rounded-lg bg-corporate-50 hover:bg-primary-50 text-corporate-600 hover:text-primary-600 border border-corporate-200 hover:border-primary-200 transition-all shadow-sm" title="Start Video Call">
+                    <i class="ph ph-video-camera text-2xl"></i>
+                </button>
+                <!-- Voice Call Button -->
+                <button class="p-3 rounded-lg bg-corporate-50 hover:bg-primary-50 text-corporate-600 hover:text-primary-600 border border-corporate-200 hover:border-primary-200 transition-all shadow-sm" title="Start Voice Call">
+                    <i class="ph ph-phone text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Video Call Overlay (Hidden by default) -->
+        <div id="video-call-overlay" class="hidden absolute inset-0 z-20 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center p-6">
+            <div class="relative w-full max-w-5xl aspect-video bg-corporate-900 rounded-2xl overflow-hidden border border-corporate-200 shadow-2xl">
+                <!-- Main Video (Remote) -->
+                <div class="absolute inset-0 flex items-center justify-center text-corporate-400 text-lg font-medium">Waiting for Dr. Robert Smith to join...</div>
+                
+                <!-- PIP Video (Local) -->
+                <div class="absolute bottom-6 right-6 w-64 aspect-video bg-corporate-800 rounded-xl border-2 border-primary-500 overflow-hidden shadow-2xl">
+                    <div class="w-full h-full flex items-center justify-center text-sm text-corporate-400 font-medium">Camera Off</div>
+                </div>
+
+                <!-- Call Controls -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white/10 backdrop-blur-md px-8 py-4 rounded-full border border-white/20 shadow-xl">
+                    <button class="p-4 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"><i class="ph ph-microphone text-2xl"></i></button>
+                    <button class="p-4 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"><i class="ph ph-video-camera text-2xl"></i></button>
+                    <button onclick="document.getElementById('video-call-overlay').classList.add('hidden')" class="p-4 rounded-full bg-red-500 hover:bg-red-600 text-white shadow-lg transition-colors"><i class="ph ph-phone-slash text-2xl"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages List -->
+        <div class="flex-1 p-8 overflow-y-auto flex flex-col gap-6 bg-corporate-50">
+            <div class="flex flex-col gap-1.5 items-start">
+                <div class="px-6 py-3 rounded-2xl rounded-tl-none bg-white border border-corporate-200 text-corporate-800 max-w-[80%] shadow-sm text-base">
+                    Hello, thanks for reaching out regarding the MIT Postdoc position.
+                </div>
+                <span class="text-xs font-medium text-corporate-400">10:40 AM</span>
+            </div>
+            
+            <div class="flex flex-col gap-1.5 items-end">
+                <div class="px-6 py-3 rounded-2xl rounded-tr-none bg-primary-600 text-white max-w-[80%] shadow-md text-base">
+                    Thank you Dr. Smith. I have prepared my transcript and the abstract for my latest publication.
+                </div>
+                <span class="text-xs font-medium text-corporate-400">10:41 AM</span>
+            </div>
+
+            <!-- Document Share Message -->
+            <div class="flex flex-col gap-1.5 items-end">
+                <div class="px-6 py-4 rounded-2xl rounded-tr-none bg-primary-600 text-white max-w-[80%] flex items-center gap-4 shadow-md">
+                    <div class="p-3 bg-primary-500 rounded-xl shadow-inner">
+                        <i class="ph ph-file-pdf text-3xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-base">Research_Abstract.pdf</div>
+                        <div class="text-sm text-primary-100">1.2 MB</div>
+                    </div>
+                    <button class="ml-4 p-2 bg-primary-700 hover:bg-primary-800 rounded-lg transition-colors shadow-sm"><i class="ph ph-download-simple text-xl"></i></button>
+                </div>
+                <span class="text-xs font-medium text-corporate-400">10:42 AM</span>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-6 bg-white border-t border-corporate-200">
+            <div class="flex items-center gap-3 bg-corporate-50 border border-corporate-200 rounded-xl p-2 pr-3 focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500/20 transition-all shadow-sm">
+                <button class="p-3 text-corporate-500 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="Attach Document">
+                    <i class="ph ph-paperclip text-2xl"></i>
+                </button>
+                <input type="text" placeholder="Type your message..." class="flex-1 bg-transparent border-none text-corporate-900 text-base focus:ring-0 px-2 py-2 outline-none">
+                <button class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-all font-bold shadow-md flex items-center gap-2">
+                    Send <i class="ph ph-paper-plane-right text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.querySelector('button[title="Start Video Call"]').addEventListener('click', () => {
+        document.getElementById('video-call-overlay').classList.remove('hidden');
+    });
+</script>
+{% endblock %}

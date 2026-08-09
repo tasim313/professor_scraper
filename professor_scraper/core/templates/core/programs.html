@@ -1,0 +1,45 @@
+{% extends "core/base.html" %}
+
+{% block title %}Programs{% endblock %}
+
+{% block content %}
+<main class="pt-12 pb-20 max-w-7xl mx-auto px-6">
+    <div class="mb-12">
+        <h1 class="text-4xl font-bold tracking-tight mb-4">Explore Academic Programs</h1>
+        <p class="text-slate-400 text-lg max-w-2xl">Discover Master's, PhD, and Bachelor's degrees around the world.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div class="lg:col-span-1 space-y-8">
+            <div>
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-4">Degree Level</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer"><div class="w-5 h-5 rounded border border-slate-700 bg-slate-900"></div><span class="text-slate-300">PhD</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><div class="w-5 h-5 rounded border border-slate-700 bg-slate-900"></div><span class="text-slate-300">Master's</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><div class="w-5 h-5 rounded border border-slate-700 bg-slate-900"></div><span class="text-slate-300">Bachelor's</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 space-y-4">
+            {% for program in programs %}
+            <a href="{% url 'program_detail' program.id %}" class="block group">
+                <div class="p-6 rounded-2xl bg-slate-900/40 border border-white/5 hover:border-indigo-500/30 transition-all">
+                    <h3 class="text-xl font-semibold mb-1 group-hover:text-indigo-400 transition-colors">{{ program.name }} ({{ program.degree.name }})</h3>
+                    <p class="text-slate-400 mb-4">🏛️ {{ program.university.canonical_name }} - {{ program.university.country.name }}</p>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 rounded-full bg-slate-800 text-xs font-medium border border-white/10">⏱️ {{ program.duration|default:"N/A" }}</span>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 text-xs font-medium border border-white/10">🌐 {{ program.study_mode|default:"On-campus" }}</span>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="p-12 text-center border border-white/5 rounded-2xl bg-slate-900/20">
+                <div class="text-4xl mb-4">📚</div>
+                <h3 class="text-xl font-medium text-white mb-2">No Programs Found</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

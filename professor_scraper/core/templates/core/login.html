@@ -1,0 +1,67 @@
+{% extends "core/base.html" %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+<main class="min-h-[calc(100vh-80px)] bg-corporate-50 flex items-center justify-center p-6">
+    <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-corporate-200">
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 rounded-2xl bg-primary-600 flex items-center justify-center text-white text-3xl mx-auto mb-4 shadow-md">
+                <i class="ph ph-buildings"></i>
+            </div>
+            <h1 class="text-2xl font-extrabold text-corporate-900">Welcome Back</h1>
+            <p class="text-corporate-500 font-medium">Sign in to your account</p>
+        </div>
+
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="p-4 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-200">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            
+            {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block text-sm font-bold text-corporate-900 mb-2">
+                    {{ field.label }}
+                </label>
+                <div class="relative">
+                    {{ field }}
+                </div>
+                {% if field.errors %}
+                    <p class="mt-2 text-sm text-red-600">{{ field.errors.0 }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3.5 px-4 rounded-xl transition-all shadow-md mt-6 text-lg">
+                Sign In
+            </button>
+        </form>
+
+        <p class="mt-8 text-center text-sm font-medium text-corporate-600">
+            Don't have an account? <a href="{% url 'register' %}" class="text-primary-600 hover:text-primary-700 font-bold underline">Create one</a>
+        </p>
+    </div>
+</main>
+<style>
+    /* Django form styling override */
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid #e2e8f0;
+        background-color: #f8fafc;
+        color: #0f172a;
+        font-weight: 500;
+        outline: none;
+        transition: all 0.2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+        border-color: #2563eb;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "core/base.html" %}
+
+{% block title %}Pricing{% endblock %}
+
+{% block content %}
+<main class="pt-12 pb-20 max-w-7xl mx-auto px-6 text-center">
+    <div class="mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Simple, Transparent Pricing</h1>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">Access the world's most comprehensive academic database.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <!-- Free Tier -->
+        <div class="p-8 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col text-left">
+            <h3 class="text-2xl font-bold mb-2">Basic</h3>
+            <div class="text-4xl font-bold mb-6">$0<span class="text-lg text-slate-500 font-normal">/mo</span></div>
+            <p class="text-slate-400 mb-8">Perfect for exploring universities and basic programs.</p>
+            <ul class="space-y-4 mb-8 flex-1 text-slate-300">
+                <li class="flex items-center gap-3">✓ Search Top Universities</li>
+                <li class="flex items-center gap-3">✓ Basic Program Info</li>
+                <li class="flex items-center gap-3 text-slate-600">✗ Scholarship Deadlines</li>
+                <li class="flex items-center gap-3 text-slate-600">✗ Professor Contact Info</li>
+            </ul>
+            <button class="w-full py-3 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors font-medium">Get Started</button>
+        </div>
+
+        <!-- Premium Tier -->
+        <div class="p-8 rounded-3xl bg-gradient-to-b from-indigo-900/40 to-slate-900 border border-indigo-500/50 flex flex-col text-left relative transform md:-translate-y-4 shadow-2xl shadow-indigo-500/20">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1 bg-indigo-500 text-white text-xs font-bold rounded-full uppercase tracking-wider">Most Popular</div>
+            <h3 class="text-2xl font-bold mb-2 text-indigo-300">Premium</h3>
+            <div class="text-4xl font-bold mb-6">$19<span class="text-lg text-slate-500 font-normal">/mo</span></div>
+            <p class="text-slate-400 mb-8">For serious students and researchers needing deep insights.</p>
+            <ul class="space-y-4 mb-8 flex-1 text-slate-300">
+                <li class="flex items-center gap-3">✓ Everything in Basic</li>
+                <li class="flex items-center gap-3">✓ All Scholarship Deadlines</li>
+                <li class="flex items-center gap-3">✓ Professor Contact Info</li>
+                <li class="flex items-center gap-3">✓ API Access (1,000 req/day)</li>
+            </ul>
+            <button class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white transition-colors font-medium">Subscribe Now</button>
+        </div>
+
+        <!-- Institutional Tier -->
+        <div class="p-8 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col text-left">
+            <h3 class="text-2xl font-bold mb-2">Institutional</h3>
+            <div class="text-4xl font-bold mb-6">Custom</div>
+            <p class="text-slate-400 mb-8">For universities, agencies, and large research teams.</p>
+            <ul class="space-y-4 mb-8 flex-1 text-slate-300">
+                <li class="flex items-center gap-3">✓ Unlimited API Access</li>
+                <li class="flex items-center gap-3">✓ Bulk Data Export (CSV)</li>
+                <li class="flex items-center gap-3">✓ Custom Scraper Requests</li>
+                <li class="flex items-center gap-3">✓ Dedicated Support</li>
+            </ul>
+            <button class="w-full py-3 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors font-medium">Contact Sales</button>
+        </div>
+    </div>
+</main>
+{% endblock %}
