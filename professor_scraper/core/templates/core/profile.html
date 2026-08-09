@@ -1,0 +1,142 @@
+{% extends "core/base.html" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<main class="pt-12 pb-20 max-w-5xl mx-auto px-6">
+    <!-- Profile Header -->
+    <div class="relative bg-white rounded-3xl border border-corporate-200 shadow-sm mb-12 overflow-hidden">
+        <!-- Banner -->
+        <div class="h-48 bg-gradient-to-r from-primary-600 to-indigo-800"></div>
+        
+        <div class="px-8 pb-8 relative flex flex-col md:flex-row gap-6 items-start md:items-end -mt-16">
+            <!-- Avatar -->
+            <div class="w-32 h-32 rounded-2xl bg-white border-4 border-white flex items-center justify-center text-4xl font-bold overflow-hidden shadow-lg">
+                <img src="https://ui-avatars.com/api/?name=John+Doe&background=2563eb&color=fff&size=128" alt="Profile" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="flex-1">
+                <h1 class="text-3xl font-extrabold mb-1 text-corporate-900">John Doe</h1>
+                <p class="text-lg text-primary-600 mb-2 font-medium">PhD Candidate at MIT | AI Researcher</p>
+                <div class="flex gap-4 text-sm text-corporate-500 font-medium">
+                    <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> Cambridge, MA</span>
+                    <span class="flex items-center gap-1.5"><i class="ph ph-link"></i> <a href="#" class="hover:text-primary-600 transition-colors">johndoe.ai</a></span>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-4 md:mt-0">
+                <button class="px-6 py-2.5 rounded-lg border border-corporate-200 bg-white hover:bg-corporate-50 text-corporate-900 transition-all font-bold shadow-sm flex items-center gap-2">
+                    <i class="ph ph-pencil-simple text-lg"></i> Edit Profile
+                </button>
+                <button class="px-6 py-2.5 rounded-lg bg-primary-600 hover:bg-primary-700 text-white transition-all font-bold shadow-md flex items-center gap-2">
+                    <i class="ph ph-share-network text-lg"></i> Share
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Column -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- About -->
+            <section class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-corporate-900">About</h2>
+                    <button class="text-corporate-400 hover:text-primary-600 transition-colors"><i class="ph ph-pencil-simple text-xl"></i></button>
+                </div>
+                <p class="text-corporate-600 leading-relaxed text-lg">
+                    Passionate researcher specializing in natural language processing and computer vision. Currently working on multimodal transformer architectures for medical imaging diagnostics at the Massachusetts Institute of Technology.
+                </p>
+            </section>
+
+            <!-- Education -->
+            <section class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-corporate-900">Education</h2>
+                    <button class="text-corporate-400 hover:text-primary-600 transition-colors"><i class="ph ph-plus-circle text-2xl"></i></button>
+                </div>
+                
+                <div class="flex gap-5">
+                    <div class="w-14 h-14 rounded-xl bg-corporate-50 flex items-center justify-center text-3xl shrink-0 text-primary-600 border border-corporate-100"><i class="ph ph-bank"></i></div>
+                    <div>
+                        <h3 class="font-bold text-lg text-corporate-900">Massachusetts Institute of Technology</h3>
+                        <p class="text-primary-600 font-medium mb-1">Doctor of Philosophy - PhD, Computer Science</p>
+                        <p class="text-sm text-corporate-500 mb-2 font-medium">2022 - 2026</p>
+                        <p class="text-corporate-600">Focusing on deep learning architectures.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Publications -->
+            <section class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-corporate-900">Publications</h2>
+                    <button class="text-corporate-400 hover:text-primary-600 transition-colors"><i class="ph ph-plus-circle text-2xl"></i></button>
+                </div>
+                
+                <div class="flex gap-5">
+                    <div class="w-14 h-14 rounded-xl bg-corporate-50 flex items-center justify-center text-3xl shrink-0 text-primary-600 border border-corporate-100"><i class="ph ph-article"></i></div>
+                    <div>
+                        <h3 class="font-bold text-lg text-corporate-900">Transformers in Healthcare: A Review</h3>
+                        <p class="text-corporate-700 font-medium">Nature Machine Intelligence</p>
+                        <p class="text-sm text-corporate-500 mb-3 font-medium">Published Jan 2024</p>
+                        <a href="#" class="inline-flex items-center gap-1.5 text-primary-600 text-sm font-bold hover:text-primary-700 transition-colors">
+                            Read Publication <i class="ph ph-arrow-up-right text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-8">
+            <!-- Documents & Uploads -->
+            <section class="p-6 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-corporate-900">My Documents</h2>
+                    <button class="text-primary-600 hover:text-primary-700 text-sm font-bold flex items-center gap-1">
+                        <i class="ph ph-upload-simple"></i> Upload
+                    </button>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-corporate-50 hover:bg-primary-50 transition-colors border border-corporate-100 cursor-pointer group">
+                        <div class="p-2.5 bg-white text-primary-600 rounded-lg shadow-sm group-hover:bg-primary-600 group-hover:text-white transition-colors"><i class="ph ph-file-pdf text-xl"></i></div>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-bold text-corporate-900">Academic_CV_2025.pdf</h4>
+                            <p class="text-xs text-corporate-500 font-medium">Uploaded 2 days ago</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-corporate-50 hover:bg-green-50 transition-colors border border-corporate-100 cursor-pointer group">
+                        <div class="p-2.5 bg-white text-green-600 rounded-lg shadow-sm group-hover:bg-green-600 group-hover:text-white transition-colors"><i class="ph ph-file-text text-xl"></i></div>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-bold text-corporate-900">MIT_Transcript.pdf</h4>
+                            <p class="text-xs text-corporate-500 font-medium">Private Document</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Links -->
+            <section class="p-6 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 text-corporate-900">External Links</h2>
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center gap-4 text-corporate-600 hover:text-primary-600 group transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-corporate-50 flex items-center justify-center group-hover:bg-primary-50 border border-corporate-100"><i class="ph ph-github-logo text-2xl"></i></div>
+                        <span class="font-bold">GitHub Profile</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-4 text-corporate-600 hover:text-primary-600 group transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-corporate-50 flex items-center justify-center group-hover:bg-primary-50 border border-corporate-100"><i class="ph ph-linkedin-logo text-2xl"></i></div>
+                        <span class="font-bold">LinkedIn Profile</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-4 text-corporate-600 hover:text-primary-600 group transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-corporate-50 flex items-center justify-center group-hover:bg-primary-50 border border-corporate-100"><i class="ph ph-student text-2xl"></i></div>
+                        <span class="font-bold">Google Scholar</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ university.canonical_name }}{% endblock %}
+
+{% block content %}
+<main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-10">
+        <a href="{% url 'university_list' %}" class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-bold mb-6 transition-colors">
+            <i class="ph ph-arrow-left"></i> Back to Universities
+        </a>
+        <div class="flex items-start gap-8 bg-white p-8 rounded-2xl border border-corporate-200 shadow-sm">
+            <div class="w-24 h-24 rounded-2xl bg-corporate-50 flex items-center justify-center text-5xl text-primary-600 border border-corporate-100 shadow-sm shrink-0">
+                <i class="ph ph-bank"></i>
+            </div>
+            <div class="flex-1">
+                <h1 class="text-4xl font-extrabold mb-3 text-corporate-900">{{ university.canonical_name }}</h1>
+                <div class="flex flex-wrap gap-6 text-corporate-600 font-medium mb-4">
+                    <span class="flex items-center gap-2">
+                        {% if university.country and university.country.iso_code %}
+                            <img src="https://flagcdn.com/w20/{{ university.country.iso_code|lower }}.png" alt="{{ university.country.name }}" class="w-5 h-auto shadow-sm">
+                        {% else %}
+                            <i class="ph ph-map-pin"></i> 
+                        {% endif %}
+                        {{ university.city.name|default:"Unknown City" }}, {{ university.country.name }}
+                    </span>
+                    <span class="flex items-center gap-2"><i class="ph ph-link"></i> <a href="{{ university.official_website }}" class="text-primary-600 hover:underline">Official Website</a></span>
+                </div>
+                <div class="flex gap-3">
+                    <span class="px-4 py-1.5 rounded-lg bg-corporate-100 text-corporate-700 text-sm font-bold border border-corporate-200 flex items-center gap-1.5"><i class="ph ph-buildings"></i> {{ university.institution_type|default:"Public" }}</span>
+                    <span class="px-4 py-1.5 rounded-lg bg-green-50 text-green-700 text-sm font-bold border border-green-200 flex items-center gap-1.5"><i class="ph ph-check-circle"></i> Verified Data</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-8">
+            <section class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+                <h2 class="text-2xl font-bold mb-4 text-corporate-900 flex items-center gap-2"><i class="ph ph-info"></i> About</h2>
+                <p class="text-corporate-600 text-lg leading-relaxed">{{ university.description|default:"No description available." }}</p>
+            </section>
+            
+            <section class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+                <h2 class="text-2xl font-bold mb-6 text-corporate-900 flex items-center gap-2"><i class="ph ph-books"></i> Faculties & Departments</h2>
+                <ul class="space-y-4">
+                    {% for faculty in university.faculties.all %}
+                        <li class="p-5 rounded-xl bg-corporate-50 border border-corporate-100 text-corporate-800 font-bold flex items-center gap-3">
+                            <i class="ph ph-caret-right text-primary-500"></i> {{ faculty.name }}
+                        </li>
+                    {% empty %}
+                        <p class="text-corporate-500 font-medium">No faculties listed.</p>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+
+        <div class="space-y-8">
+            <div class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+                <h3 class="text-xl font-bold mb-6 text-corporate-900 flex items-center gap-2"><i class="ph ph-chart-bar"></i> Quick Stats</h3>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-corporate-50 text-primary-600 flex items-center justify-center text-2xl border border-corporate-100"><i class="ph ph-calendar-blank"></i></div>
+                        <div>
+                            <div class="text-corporate-500 text-sm font-bold uppercase tracking-wider">Founded</div>
+                            <div class="text-corporate-900 font-extrabold text-xl">{{ university.founded_year|default:"N/A" }}</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-corporate-50 text-primary-600 flex items-center justify-center text-2xl border border-corporate-100"><i class="ph ph-users"></i></div>
+                        <div>
+                            <div class="text-corporate-500 text-sm font-bold uppercase tracking-wider">Total Students</div>
+                            <div class="text-corporate-900 font-extrabold text-xl">{{ university.student_population|default:"N/A" }}</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-corporate-50 text-primary-600 flex items-center justify-center text-2xl border border-corporate-100"><i class="ph ph-globe-hemisphere-east"></i></div>
+                        <div>
+                            <div class="text-corporate-500 text-sm font-bold uppercase tracking-wider">Int'l Students</div>
+                            <div class="text-corporate-900 font-extrabold text-xl">{{ university.international_student_population|default:"N/A" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -13,6 +13,8 @@ from professor_scraper.Settings.auth import(
     TIME_ZONE,
     USE_I18N,
     USE_TZ,
+    ASGI_APPLICATION,
+    CHANNEL_LAYERS,
 )
 
 from professor_scraper.Settings.database import DATABASES 

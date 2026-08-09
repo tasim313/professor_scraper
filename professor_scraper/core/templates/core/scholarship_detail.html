@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ scholarship.name }}{% endblock %}
+
+{% block content %}
+<main class="max-w-4xl mx-auto px-6 py-12">
+    <a href="{% url 'scholarship_list' %}" class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-bold mb-6 transition-colors">
+        <i class="ph ph-arrow-left"></i> Back to Scholarships
+    </a>
+    
+    <div class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
+        <h1 class="text-4xl font-extrabold mb-4 text-corporate-900">{{ scholarship.name }}</h1>
+        <div class="flex items-center gap-3 mb-8">
+            <span class="px-4 py-1.5 rounded-lg bg-amber-50 text-amber-700 text-sm font-bold border border-amber-200 flex items-center gap-1.5">
+                <i class="ph ph-currency-dollar"></i> {{ scholarship.funding_type|default:"Funding Varies" }}
+            </span>
+            {% if scholarship.deadline %}
+            <span class="px-4 py-1.5 rounded-lg bg-red-50 text-red-700 text-sm font-bold border border-red-200 flex items-center gap-1.5">
+                <i class="ph ph-clock"></i> Deadline: {{ scholarship.deadline|date:"M d, Y" }}
+            </span>
+            {% endif %}
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 mb-8">
+            <div class="p-6 rounded-xl bg-corporate-50 border border-corporate-100">
+                <div class="text-sm font-bold uppercase tracking-wider text-corporate-500 mb-1 flex items-center gap-2"><i class="ph ph-buildings text-primary-500"></i> Provider</div>
+                <div class="text-xl font-bold text-corporate-900">{{ scholarship.provider|default:"N/A" }}</div>
+            </div>
+            <div class="p-6 rounded-xl bg-corporate-50 border border-corporate-100">
+                <div class="text-sm font-bold uppercase tracking-wider text-corporate-500 mb-1 flex items-center gap-2"><i class="ph ph-graduation-cap text-primary-500"></i> Level</div>
+                <div class="text-xl font-bold text-corporate-900">{{ scholarship.degree_level|default:"All Levels" }}</div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xl font-bold mb-4 text-corporate-900 flex items-center gap-2"><i class="ph ph-info"></i> Description</h3>
+            <p class="text-corporate-600 leading-relaxed text-lg">{{ scholarship.description|default:"No description available." }}</p>
+        </div>
+    </div>
+</main>
+{% endblock %}

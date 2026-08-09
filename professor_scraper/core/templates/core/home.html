@@ -1,0 +1,64 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<main class="relative pt-28 pb-20 lg:pt-40 lg:pb-32 overflow-hidden text-center bg-white selection:bg-primary-500/30">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-50/50 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight text-corporate-900">
+            Discover Your Academic <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-indigo-600">
+                Future Worldwide.
+            </span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-corporate-500 max-w-2xl mx-auto mb-12">
+            The most comprehensive, source-verified database of global universities, 
+            degree programs, scholarships, and research opportunities.
+        </p>
+
+        <div class="max-w-3xl mx-auto relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-primary-400 to-indigo-400 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+            <div class="relative flex items-center bg-white rounded-2xl border border-corporate-200 p-2 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                <i class="ph ph-magnifying-glass text-2xl text-corporate-400 ml-4"></i>
+                <input 
+                    type="text" 
+                    placeholder="Search for universities, programs, or scholarships..." 
+                    class="w-full bg-transparent border-none text-corporate-900 text-lg focus:ring-0 px-4 py-4 outline-none placeholder:text-corporate-400"
+                />
+                <button class="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-md hover:shadow-lg">
+                    Search <i class="ph ph-arrow-right text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-20 flex flex-wrap justify-center gap-12 opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-16 h-16 rounded-2xl bg-corporate-50 border border-corporate-200 flex items-center justify-center text-primary-600 shadow-sm">
+                    <i class="ph ph-globe-hemisphere-east text-4xl"></i>
+                </div>
+                <span class="text-lg font-bold text-corporate-700">Global Data</span>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-16 h-16 rounded-2xl bg-corporate-50 border border-corporate-200 flex items-center justify-center text-primary-600 shadow-sm">
+                    <i class="ph ph-certificate text-4xl"></i>
+                </div>
+                <span class="text-lg font-bold text-corporate-700">Verified Trust</span>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-16 h-16 rounded-2xl bg-corporate-50 border border-corporate-200 flex items-center justify-center text-primary-600 shadow-sm">
+                    <i class="ph ph-database text-4xl"></i>
+                </div>
+                <span class="text-lg font-bold text-corporate-700">Open Network</span>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-16 h-16 rounded-2xl bg-corporate-50 border border-corporate-200 flex items-center justify-center text-primary-600 shadow-sm">
+                    <i class="ph ph-users-three text-4xl"></i>
+                </div>
+                <span class="text-lg font-bold text-corporate-700">Community</span>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

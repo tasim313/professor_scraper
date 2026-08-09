@@ -2,6 +2,7 @@
 Django==4.2.5  # The latest stable version of Django
 djangorestframework==3.14.0  # Django Rest Framework for building APIs
 djangorestframework-simplejwt==5.3.1
+django-filter==23.3
 
 # Web scraping packages
 beautifulsoup4==4.12.2  # Beautiful Soup for parsing HTML
@@ -26,3 +27,24 @@ matplotlib==3.7.2  # Plotting and visualization library (optional)
 # encryption and decryption
 cryptography == 44.0.0 
 paramiko == 3.5.0
+
+# Template and UI Components
+django-cotton==1.0.0
+django-components>=0.119
+django-pattern-library==1.4.1
+
+# Admin Enhancements
+django-import-export==3.3.1
+django-admin-rangefilter==0.12.1
+
+# Automated Scraping Engine
+selenium==4.12.0
+playwright>=1.40.0
+lxml==4.9.3
+celery>=5.3.6
+redis==5.0.1
+
+# WebSockets (Live Notifications)
+channels==4.0.0
+channels-redis==4.1.0
+daphne==4.0.0

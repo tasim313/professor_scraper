@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corporate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            500: '#64748b',
+                            700: '#334155',
+                            900: '#0f172a',
+                        },
+                        primary: {
+                            500: '#2563eb', // Corporate Blue
+                            600: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="min-h-screen font-sans bg-white text-corporate-900 selection:bg-primary-500/30">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 border-b border-corporate-200 bg-white/95 backdrop-blur-xl shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="{% url 'home' %}" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center text-white shadow-md">
+                    <i class="ph ph-buildings text-2xl"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight text-corporate-900">Platform</span>
+            </a>
+            <div class="hidden md:flex gap-8 text-base font-semibold text-corporate-500">
+                <a href="{% url 'university_list' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-bank text-lg"></i> Universities</a>
+                <a href="{% url 'program_list' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-books text-lg"></i> Programs</a>
+                <a href="{% url 'scholarship_list' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-graduation-cap text-lg"></i> Scholarships</a>
+                <a href="{% url 'chat' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-chats text-lg"></i> Chat <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span></a>
+                <a href="{% url 'pricing' %}" class="text-primary-600 hover:text-primary-700 transition-colors flex items-center gap-1.5"><i class="ph ph-credit-card text-lg"></i> Pricing</a>
+            </div>
+            <div class="flex gap-4 items-center">
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="w-10 h-10 rounded-full bg-corporate-100 border-2 border-transparent hover:border-primary-500 transition-colors overflow-hidden shadow-sm">
+                    <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=2563eb&color=fff" alt="Avatar" class="w-full h-full object-cover">
+                </a>
+                <form action="{% url 'logout' %}" method="post" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg bg-corporate-100 text-corporate-700 hover:bg-corporate-200 transition-all shadow-sm">
+                        <i class="ph ph-sign-out text-lg"></i> Logout
+                    </button>
+                </form>
+                {% else %}
+                <a href="{% url 'login' %}" class="flex items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg bg-corporate-100 text-corporate-900 hover:bg-corporate-200 transition-all shadow-sm">
+                    Login
+                </a>
+                <a href="{% url 'register' %}" class="flex items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-all shadow-md">
+                    Sign Up
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="relative z-10 pt-16">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Live WebSocket Notifications Script -->
+    <script>
+        const notificationSocket = new WebSocket(
+            (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + 
+            window.location.host + '/ws/notifications/'
+        );
+
+        notificationSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            showToast(data.message, data.event_type);
+        };
+
+        notificationSocket.onclose = function(e) {
+            console.error('Notification socket closed unexpectedly');
+        };
+
+        function showToast(message, type) {
+            const container = document.getElementById('toast-container');
+            
+            const toast = document.createElement('div');
+            toast.className = 'pointer-events-auto transform transition-all duration-500 translate-y-10 opacity-0 bg-white border border-corporate-200 text-corporate-900 px-6 py-4 rounded shadow-lg flex items-center gap-4';
+            
+            let icon = '<i class="ph ph-bell text-primary-600 text-2xl"></i>';
+            if (type === 'scraper_status') icon = '<i class="ph ph-gear text-primary-600 text-2xl animate-spin"></i>';
+            if (type === 'university_created') icon = '<i class="ph ph-bank text-primary-600 text-2xl"></i>';
+            if (type === 'professor_created') icon = '<i class="ph ph-user-circle text-primary-600 text-2xl"></i>';
+
+            toast.innerHTML = `
+                <div>${icon}</div>
+                <div>
+                    <h4 class="text-xs font-bold text-corporate-500 uppercase tracking-wider mb-1">System Update</h4>
+                    <p class="text-corporate-900 text-sm">${message}</p>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 50);
+
+            // Animate out and remove after 5 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

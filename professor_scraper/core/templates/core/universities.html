@@ -1,0 +1,83 @@
+{% extends "core/base.html" %}
+
+{% block title %}Universities{% endblock %}
+
+{% block content %}
+<main class="pt-12 pb-20 max-w-7xl mx-auto px-6">
+    <div class="mb-12">
+        <h1 class="text-4xl font-bold tracking-tight mb-4 text-corporate-900">Explore Global Universities</h1>
+        <p class="text-corporate-500 text-lg max-w-2xl">
+            Filter and discover institutions based on location, ranking, available funding, and research output.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Sidebar Filters -->
+        <div class="lg:col-span-1 space-y-8">
+            <div class="bg-white p-6 rounded-xl border border-corporate-200 shadow-sm">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-corporate-900 mb-4 flex items-center gap-2">
+                    <i class="ph ph-map-pin"></i> Location
+                </h3>
+                <div class="space-y-3 mb-6">
+                    <label class="flex items-center gap-3 group cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-primary-600 rounded border-corporate-300 focus:ring-primary-500">
+                        <span class="text-corporate-700 font-medium group-hover:text-primary-600 transition-colors">United States</span>
+                    </label>
+                    <label class="flex items-center gap-3 group cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-primary-600 rounded border-corporate-300 focus:ring-primary-500">
+                        <span class="text-corporate-700 font-medium group-hover:text-primary-600 transition-colors">Canada</span>
+                    </label>
+                </div>
+                <button class="w-full flex items-center justify-center gap-2 bg-corporate-100 hover:bg-corporate-200 text-corporate-900 px-6 py-3 rounded-lg font-bold transition-all border border-corporate-200">
+                    <i class="ph ph-funnel text-lg"></i> Apply Filters
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="lg:col-span-3 space-y-4">
+            {% for uni in universities %}
+            <a href="{% url 'university_detail' uni.id %}" class="block group">
+                <div class="p-6 rounded-xl bg-white border border-corporate-200 hover:border-primary-400 hover:shadow-md transition-all">
+                    <div class="flex items-start gap-6">
+                        <div class="w-16 h-16 rounded-lg bg-corporate-50 flex items-center justify-center text-3xl text-primary-500 border border-corporate-100 group-hover:scale-105 transition-transform">
+                            <i class="ph ph-bank"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2 text-corporate-900 group-hover:text-primary-600 transition-colors">{{ uni.canonical_name }}</h3>
+                            <div class="flex items-center gap-6 text-sm text-corporate-500 mb-4">
+                                <span class="flex items-center gap-2">
+                                    {% if uni.country and uni.country.iso_code %}
+                                        <img src="https://flagcdn.com/w20/{{ uni.country.iso_code|lower }}.png" alt="{{ uni.country.name }}" class="w-5 h-auto shadow-sm">
+                                    {% else %}
+                                        <i class="ph ph-map-pin"></i> 
+                                    {% endif %}
+                                    {{ uni.country.name }}
+                                </span>
+                                {% if uni.institution_type %}
+                                <span class="flex items-center gap-2"><i class="ph ph-buildings"></i> {{ uni.institution_type }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="px-3 py-1 rounded bg-green-50 text-green-700 text-xs font-semibold border border-green-200 flex items-center gap-1">
+                                    <i class="ph ph-check-circle"></i> Verified
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-corporate-400 group-hover:text-primary-500 transition-colors">
+                            <i class="ph ph-caret-right text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="p-12 text-center border border-corporate-200 rounded-xl bg-white shadow-sm">
+                <div class="text-5xl text-corporate-300 mb-4 flex justify-center"><i class="ph ph-empty"></i></div>
+                <h3 class="text-xl font-bold text-corporate-900 mb-2">No Universities Found</h3>
+                <p class="text-corporate-500">Database is currently empty. Please run scrapers or add data via admin.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

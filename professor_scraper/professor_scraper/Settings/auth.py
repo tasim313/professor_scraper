@@ -6,7 +6,7 @@ from django.conf import settings
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Load environment variables
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -35,13 +35,45 @@ DJANGO_APPS = [
 
 PROJECT_APP = [
     'core',
+    'apps.countries',
+    'apps.universities',
+    'apps.subjects',
+    'apps.degrees',
+    'apps.programs',
+    'apps.scholarships',
+    'apps.funding',
+    'apps.professors',
+    'apps.research',
+    'apps.tuition',
+    'apps.living_cost',
+    'apps.admissions',
+    'apps.rankings',
+    'apps.sources',
+    'apps.verification',
+    'apps.scraping',
+    'apps.search',
+    'apps.profiles',
+    'apps.chat',
+    'apps.notifications',
+    'apps.subscriptions',
+    'apps.newsletters',
+    'apps.advertising',
+    'apps.analytics',
+    'apps.departments',
+    'apps.api',
 ]
 
 THIRD_PARTY_APP = [
-
+    'daphne',
+    'channels',
+    'django_cotton',
+    'django_components',
+    'pattern_library',
+    'import_export',
+    'rangefilter',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APP + THIRD_PARTY_APP
+INSTALLED_APPS = ["daphne"] + DJANGO_APPS + PROJECT_APP + [app for app in THIRD_PARTY_APP if app != "daphne"]
 
 
 ROOT_URLCONF = "professor_scraper.urls"
@@ -91,6 +123,14 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
     ],
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle"
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "100/day",
+        "user": "1000/day"
+    }
 }
 
 
@@ -122,3 +162,11 @@ TIME_ZONE = env("DJANGO_TIME_ZONE", default="Asia/Dhaka")
 USE_I18N = True
 
 USE_TZ = True
+
+ASGI_APPLICATION = "professor_scraper.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}

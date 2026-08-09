@@ -1,59 +1,79 @@
-# Project Title: Professor Scraper
+# Global Academic Intelligence Platform
+*(Formerly Professor Scraper)*
 
-## Project Goal
-The **Professor Scraper** project aims to provide an efficient web scraping tool that collects data about professors from various online sources. This data can be used for analysis, academic purposes, or to enhance educational resources. The project is built using Django and Django Rest Framework (DRF), ensuring a robust backend for managing the scraped data.
+## Project Vision
+The Global Academic Intelligence Platform is a worldwide academic discovery and structured data platform. 
+We aggregate, verify, and structure data from thousands of official university domains to provide a reliable knowledge graph covering:
+- **Universities & Colleges**
+- **Degree Programs & Subjects**
+- **Scholarships & Fellowships**
+- **Researchers & Professors**
+- **Tuition & Living Costs**
 
-## Features
-- **Web Scraping**: Uses Beautiful Soup and Requests libraries to scrape information from designated websites.
-- **API Development**: Provides a RESTful API using Django Rest Framework for easy access to scraped data.
-- **Data Storage**: Supports PostgreSQL (recommended) or SQLite for database management, allowing for easy data persistence and retrieval.
-- **CORS Handling**: Includes configuration for Cross-Origin Resource Sharing (CORS) to enable frontend applications to communicate with the backend.
-- **Environment Management**: Utilizes django-environ for managing environment variables, making it easy to configure settings based on different environments (development, production).
-- **Code Quality Tools**: Integrated linting and formatting tools (Flake8 and Black) to maintain code quality and consistency.
+## System Architecture
+This project utilizes a highly decoupled, scalable architecture:
+
+1. **Backend API (Django + DRF)**
+   - Strict Domain-Driven Design (20+ isolated apps)
+   - PostgreSQL Relational Database Schema (30+ normalized tables)
+   - Read-Only JSON API exposed via Django Rest Framework at `/api/v1/`
+
+2. **Scraping Engine (Celery + BeautifulSoup + Playwright + Selenium)**
+   - Custom `BaseScraper` Adapter Pattern
+   - Asynchronous execution via Celery & Redis
+   - Intelligent DOM parsing mapped directly to the ORM
+
+3. **Frontend (Next.js 15 + Tailwind CSS v4 + Three.js)**
+   - High-fidelity premium user interface
+   - Next.js App Router for SEO-optimized programmatic landing pages
+   - Located in the `/frontend/` directory
+
+4. **Internal CMS (Django Admin + RangeFilter + ImportExport)**
+   - Enterprise-grade CRM for data moderation
+   - Bulk CSV import/export capabilities
+   - Advanced temporal and relational filtering
 
 ## Installation and Setup
 
 ### Prerequisites
-- Python 3.8 or later
-- PostgreSQL (or SQLite)
+- Python 3.10+
+- Node.js 18.17+
+- PostgreSQL
+- Redis (for Celery)
 
-### Step 1: Clone the Repository
-```bash
-git clone https://github.com/tasim313/professor_scraper.git
-cd professor_scraper
-```
-
-Step 2: Create a Virtual Environment
-It’s a good practice to use a virtual environment to manage  project's dependencies.
+### 1. Backend Setup
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-```
-Step 3: Install Requirements
-Use pip to install the required packages.
-```bash
+source venv/bin/activate
 pip install -r requirement/development.text
 ```
-
-Step 4: Configure the Database
-- If using PostgreSQL, create a database and update  settings.py file with the database credentials.
-- For SQLite, ensure the database file path is correctly set in settings.py.
-
-Step 5: Run Migrations
-To set up the database schema, run the migrations.
-- python manage.py migrate
-
-Step 6: Create a Superuser (Optional)
-If  need to access the Django admin interface, create a superuser.
+Configure your `.env` file with your database credentials.
 ```bash
+python manage.py makemigrations
+python manage.py migrate
 python manage.py createsuperuser
-```
-Step 7: Start the Development Server
-```bash
 python manage.py runserver
 ```
-access the application at http://127.0.0.1:8000/.
 
-Usage
+### 2. Scraping Engine Setup
+Start the Redis server, then run the Celery worker:
+```bash
+celery -A professor_scraper worker -l info
+```
+To run a sample scraper directly:
+```bash
+python manage.py run_wikipedia_scraper
+```
 
-Once the server is running,  use the API endpoints to interact with the scraped data. Refer to the documentation provided within the project for details on available endpoints and their usage.
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## Contributing
+Please see `CONTRIBUTING.md` for our branch strategy and coding standards.
+
+## Security
+See `SECURITY.md` for information on our data provenance, GDPR compliance, and vulnerability reporting.
