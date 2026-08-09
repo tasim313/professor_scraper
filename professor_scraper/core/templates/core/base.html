@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Acadexa{% endblock %}</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,13 +16,16 @@
                             50: '#f8fafc',
                             100: '#f1f5f9',
                             200: '#e2e8f0',
-                            500: '#64748b',
-                            700: '#334155',
-                            900: '#0f172a',
+                            300: '#cbd5e1',
+                            400: '#9ca3af',
+                            500: '#4b5563', // Dark Gray for secondary text
+                            700: '#1f2937', // Almost black
+                            900: '#000000', // Pure Black for primary text
                         },
                         primary: {
-                            500: '#2563eb', // Corporate Blue
-                            600: '#1d4ed8',
+                            500: '#3b82f6', // Standard Blue
+                            600: '#2563eb', // Standard Blue Darker for buttons
+                            700: '#1d4ed8',
                         }
                     }
                 }
@@ -41,10 +44,11 @@
                 <div class="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center text-white shadow-md">
                     <i class="ph ph-buildings text-2xl"></i>
                 </div>
-                <span class="text-xl font-extrabold tracking-tight text-corporate-900">Platform</span>
+                <span class="text-xl font-extrabold tracking-tight text-corporate-900">Acadexa</span>
             </a>
             <div class="hidden md:flex gap-8 text-base font-semibold text-corporate-500">
                 <a href="{% url 'university_list' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-bank text-lg"></i> Universities</a>
+                <a href="{% url 'professor_list' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-users text-lg"></i> Researchers</a>
                 <a href="{% url 'program_list' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-books text-lg"></i> Programs</a>
                 <a href="{% url 'scholarship_list' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-graduation-cap text-lg"></i> Scholarships</a>
                 <a href="{% url 'chat' %}" class="hover:text-primary-600 transition-colors flex items-center gap-1.5"><i class="ph ph-chats text-lg"></i> Chat <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span></a>
@@ -107,6 +111,7 @@
             if (type === 'scraper_status') icon = '<i class="ph ph-gear text-primary-600 text-2xl animate-spin"></i>';
             if (type === 'university_created') icon = '<i class="ph ph-bank text-primary-600 text-2xl"></i>';
             if (type === 'professor_created') icon = '<i class="ph ph-user-circle text-primary-600 text-2xl"></i>';
+            if (type === 'scholarship_created') icon = '<i class="ph ph-graduation-cap text-primary-600 text-2xl"></i>';
 
             toast.innerHTML = `
                 <div>${icon}</div>

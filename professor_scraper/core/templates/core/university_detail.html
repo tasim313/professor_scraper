@@ -23,7 +23,7 @@
                         {% endif %}
                         {{ university.city.name|default:"Unknown City" }}, {{ university.country.name }}
                     </span>
-                    <span class="flex items-center gap-2"><i class="ph ph-link"></i> <a href="{{ university.official_website }}" class="text-primary-600 hover:underline">Official Website</a></span>
+                    <span class="flex items-center gap-2"><i class="ph ph-link"></i> <a href="{% if 'http' not in university.official_website %}https://{% endif %}{{ university.official_website }}" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">Official Website</a></span>
                 </div>
                 <div class="flex gap-3">
                     <span class="px-4 py-1.5 rounded-lg bg-corporate-100 text-corporate-700 text-sm font-bold border border-corporate-200 flex items-center gap-1.5"><i class="ph ph-buildings"></i> {{ university.institution_type|default:"Public" }}</span>

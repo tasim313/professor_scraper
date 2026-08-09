@@ -36,9 +36,13 @@
             {% for prof in professors %}
             <a href="{% url 'professor_detail' prof.id %}" class="block group">
                 <div class="p-6 rounded-xl bg-white border border-corporate-200 hover:border-primary-400 hover:shadow-md transition-all flex items-center gap-6">
-                    <div class="w-16 h-16 rounded-full bg-corporate-100 flex items-center justify-center text-xl font-bold text-corporate-500 border border-corporate-200 group-hover:scale-105 transition-transform">
+                    {% if prof.image_url %}
+                    <img src="{{ prof.image_url }}" alt="{{ prof.name }}" class="w-16 h-16 rounded-full object-cover border border-corporate-200 group-hover:scale-105 transition-transform shrink-0">
+                    {% else %}
+                    <div class="w-16 h-16 rounded-full bg-corporate-100 flex items-center justify-center text-xl font-bold text-corporate-500 border border-corporate-200 group-hover:scale-105 transition-transform shrink-0">
                         {{ prof.name|make_list|first }}
                     </div>
+                    {% endif %}
                     <div class="flex-1">
                         <h3 class="text-xl font-bold mb-1 text-corporate-900 group-hover:text-primary-600 transition-colors">{{ prof.name }}</h3>
                         <p class="text-corporate-500 text-sm mb-2 flex items-center gap-1">
