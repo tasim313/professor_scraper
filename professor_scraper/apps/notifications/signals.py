@@ -52,11 +52,15 @@ def notify_new_professor(sender, instance, created, **kwargs):
 def notify_new_scholarship(sender, instance, created, **kwargs):
     if created:
         channel_layer = get_channel_layer()
+        opening = instance.opening_date.strftime('%b %d, %Y') if instance.opening_date else 'Not Specified'
+        deadline = instance.deadline.strftime('%b %d, %Y') if instance.deadline else 'Not Specified'
+        news = f"Special: {instance.funding_type}" if instance.funding_type else "New Opportunity!"
+        
         async_to_sync(channel_layer.group_send)(
             'global_notifications',
             {
                 'type': 'send_notification',
-                'message': f'New scholarship verified: {instance.name}',
+                'message': f'New Scholarship Found: {instance.name} | Release: {opening} | Expires: {deadline} | {news}',
                 'event_type': 'scholarship_created'
             }
         )

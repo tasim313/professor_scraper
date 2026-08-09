@@ -10,9 +10,13 @@
     
     <div class="p-8 rounded-2xl bg-white border border-corporate-200 shadow-sm">
         <div class="flex items-start gap-8">
+            {% if professor.image_url %}
+            <img src="{{ professor.image_url }}" alt="{{ professor.name }}" class="w-24 h-24 rounded-2xl object-cover border border-corporate-100 shadow-sm shrink-0">
+            {% else %}
             <div class="w-24 h-24 rounded-2xl bg-corporate-50 border border-corporate-100 flex items-center justify-center text-4xl font-extrabold text-corporate-400 shadow-sm shrink-0">
                 {{ professor.name|make_list|first }}
             </div>
+            {% endif %}
             <div class="flex-1">
                 <h1 class="text-4xl font-extrabold mb-3 text-corporate-900">{{ professor.name }}</h1>
                 <p class="text-xl text-primary-600 font-bold mb-4 flex items-center gap-2">
@@ -36,8 +40,13 @@
                     </a>
                     {% endif %}
                     {% if professor.profile_url %}
-                    <a href="{{ professor.profile_url }}" target="_blank" class="px-5 py-2.5 rounded-lg border border-corporate-200 bg-white hover:bg-corporate-50 text-corporate-900 font-bold transition-colors flex items-center gap-2 shadow-sm">
+                    <a href="{% if 'http' not in professor.profile_url %}https://{% endif %}{{ professor.profile_url }}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg border border-corporate-200 bg-white hover:bg-corporate-50 text-corporate-900 font-bold transition-colors flex items-center gap-2 shadow-sm">
                         <i class="ph ph-link text-lg"></i> Official Profile
+                    </a>
+                    {% endif %}
+                    {% if professor.linkedin_url %}
+                    <a href="{% if 'http' not in professor.linkedin_url %}https://{% endif %}{{ professor.linkedin_url }}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg border border-corporate-200 bg-white hover:bg-blue-50 text-corporate-900 font-bold transition-colors flex items-center gap-2 shadow-sm">
+                        <i class="ph ph-linkedin-logo text-lg text-[#0A66C2]"></i> LinkedIn
                     </a>
                     {% endif %}
                 </div>
